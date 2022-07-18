@@ -2,8 +2,8 @@ package main
 
 import (
   "github.com/IbrahimShahzad/gonfigure"
+  "github.com/RedsonBr140/gpkg/utils"
   "strconv"
-  "errors"
   "fmt"
   "os"
 )
@@ -33,7 +33,7 @@ func failToGet(value string, defaultValue string){
 }
 
 func init(){
-  if _, err := os.Stat(configPath); errors.Is(err, os.ErrNotExist) {
+  if !utils.Exists(configPath) {
     fmt.Println("error: Config file not found, creating")
 
     err := initConfig()
