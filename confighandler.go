@@ -8,7 +8,7 @@ import (
   "os"
 )
 
-const FILEDEFAULTERROR = "Error %s the config file. IF you need help, open a issue with the following:"
+const FILEDEFAULTERROR = "Error with the config file. IF you need help, open a issue with the following:"
 
 var (
   configPath string = "./gpkg.conf"
@@ -29,7 +29,7 @@ func initConfig() error {
 }
 
 func failToGet(value string, defaultValue string){
-  fmt.Println("Failed trying to get", value, "Using default", defaultValue)
+  fmt.Println("Failed trying to get", "Using default", defaultValue)
 }
 
 func init(){
@@ -38,7 +38,7 @@ func init(){
 
     err := initConfig()
     if err != nil {
-      fmt.Printf("%s\nerr: %s",FILEDEFAULTERROR, "creating", err)
+      fmt.Printf("%s\nerr: %s", "creating", err)
       os.Exit(1)
     }
 
@@ -47,7 +47,7 @@ func init(){
 
   conf, err := gonfigure.LoadINI(configPath)
   if err != nil {
-    fmt.Printf("%s\nerr: %s", FILEDEFAULTERROR, "openning", err)
+    fmt.Printf("%s\nerr: %s", "openning", err)
   }
   cfgsearchsize, err := gonfigure.GetParameterValue(conf, "preferences", "searchsize")
   if err != nil {
