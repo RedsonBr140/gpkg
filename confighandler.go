@@ -13,7 +13,7 @@ const FILEDEFAULTERROR = "Error with the config file. IF you need help, open a i
 var (
   configPath string = "./gpkg.conf"
   SearchSize int    = 7
-  Colors     bool
+  IsColorsEnable     bool
 )
 
 func initConfig() error {
@@ -59,8 +59,10 @@ func init(){
       SearchSize = 7
     }
   }
+
+  // Check the colors in config file and export IsColorsEnable with the response of that checking
   
   cfgcolors, _ := gonfigure.GetParameterValue(conf, "preferences", "colors")
-  Colors,    _ = strconv.ParseBool(cfgcolors)
+  IsColorsEnable,    _ = strconv.ParseBool(cfgcolors)
 }
 
