@@ -51,6 +51,10 @@ repos, err := utils.SearchRepos(SearchFlagVar)
 }
 
 func main(){
+  if !IsColorsEnable {
+    Color.DisableColors()
+  }
+
   if len(os.Args) < 2 {
     fmt.Println(Color.Bold + Color.Red + "error:" + Color.Reset, "no operation specified. (use -h for help)")
   }
