@@ -35,8 +35,9 @@ repos, err := utils.SearchRepos(SearchFlagVar)
   }
 
   for i := 0; i < SearchSize;i++ {
-    fmt.Printf("\n%s%s\033[m",
-    Color.Cyan, repos.Repositories[i].GetFullName())
+    fmt.Printf("\n%s%s%s",
+    Color.Cyan, repos.Repositories[i].GetFullName(),
+    Color.Reset)
 
     fmt.Printf("\n\t%s",
     utils.GetDescriptionText(repos.Repositories[i].GetDescription()))
