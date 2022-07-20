@@ -1,27 +1,37 @@
 package main
 
 import (
+  "os"
   "fmt"
   "log"
-  "os"
+  "strings"
+
   "github.com/go-git/go-git/v5"
   "github.com/RedsonBr140/gpkg/utils"
 )
 
+const CACHEDIR string = "./root/var/cache/"
+
 func Install(){
+  var clonePath string = strings.ToLower(CACHEDIR + InstallFlag[0] + "_" + InstallFlag[1])
   url, err := utils.GetRepoURL(InstallFlag[0], InstallFlag[1])
   if err != nil {
     fmt.Println(Color.Red + "Error:" + Color.Reset, "package not found.")
   }
 
-  git.PlainClone("./root/var/cache/" + InstallFlag[0] + "_" + InstallFlag[1], false, &git.CloneOptions{
+
+  git.PlainClone(clonePath, false, &git.CloneOptions{
     URL:      url,
     Progress: os.Stdout,
   })
+
+  if err := os.Chdir(clonePath); err != nil {
+    fmt.Println(Color.Bold + Color.Red + "Error:" + Color.Reset, "Can't change directory\n", err)
+  }
 }
 
 func SearchFunction(){
-repos, err := utils.SearchRepos(SearchFlagVar)
+  repos, err := utils.SearchRepos(SearchFlagVar)
   if err != nil {
     log.Fatal("Cannot get the repositories list, please check network connection.")
   }
@@ -33,7 +43,8 @@ repos, err := utils.SearchRepos(SearchFlagVar)
   if len(repos.Repositories) < SearchSize {
     SearchSize = len(repos.Repositories)
   }
-
+  
+  // TODO: Rebuild UI.
   for i := 0; i < SearchSize;i++ {
     fmt.Printf("\n%s%s%s",
     Color.Cyan, repos.Repositories[i].GetFullName(),
